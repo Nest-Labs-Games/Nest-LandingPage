@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nest Game Incubator Program · 2026</title>
+<link rel="icon" type="image/png" href="logos/favicon.png">
+<link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
+<link rel="apple-touch-icon" href="logos/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --ink:#160b2e;
+    --ink-soft:#4a3d66;
+    --muted:#7d7396;
+    --line:#ece7f7;
+    --lav:#f5f2ff;
+    --lav-2:#efeaff;
+    --white:#ffffff;
+    --v-50:#f3efff;
+    --v-100:#e7dfff;
+    --v-300:#b8a4f5;
+    --v-500:#7c3aed;
+    --v-600:#6d28d9;
+    --v-700:#5b21b6;
+    --dark:#0e0a1f;
+    --dark-2:#160f2e;
+    --grad:linear-gradient(135deg,#8b6cf7 0%,#6d3bea 52%,#4a1fb0 100%);
+    --grad-soft:linear-gradient(135deg,#9c82ff 0%,#7b4cf0 100%);
+    --grad-text:linear-gradient(120deg,#8b6cf7 0%,#6d28d9 55%,#7c3aed 100%);
+    --shadow-sm:0 2px 8px rgba(74,31,176,.06);
+    --shadow:0 18px 45px -20px rgba(74,31,176,.35);
+    --shadow-lg:0 40px 90px -35px rgba(74,31,176,.45);
+    --r:26px;
+    --r-lg:36px;
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-head{font-family:"Plus Jakarta Sans","Inter",sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{
+    font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;
+    font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--v-600);
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .eyebrow::before{display:none}
+  .eyebrow.center{justify-content:center}
+  .eyebrow.on-dark{color:#c9b6ff}
+  .section{padding:106px 0}
+  .section-head{max-width:660px;margin:0 auto 56px;text-align:center}
+  .section-head h2{font-size:clamp(30px,4.2vw,46px);margin:18px 0 14px}
+  .section-head p{color:var(--muted);font-size:17px}
+  .section-head.left{text-align:left;margin-left:0;margin-right:0}
+  /* problem section: title left, phone+controller art right */
+  .section.problem{padding-top:52px;padding-bottom:84px}
+  .problem-top{display:flex;align-items:center;justify-content:flex-start;gap:36px;margin-bottom:44px}
+  .problem-top .section-head{margin:0;max-width:620px}
+  .problem-art{flex:0 0 auto;width:340px;max-width:36%;height:auto;margin:-100px 0 -44px;filter:drop-shadow(0 26px 34px rgba(74,31,176,.28))}
+  @media(max-width:860px){.problem-art{display:none}.problem-top{margin-bottom:36px}}
+
+  /* buttons */
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;justify-content:center;
+    font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:15px;
+    padding:14px 26px;border-radius:999px;cursor:pointer;border:0;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease;white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 14px 30px -12px rgba(109,40,217,.7)}
+  .btn-primary:hover{box-shadow:0 20px 40px -14px rgba(109,40,217,.85)}
+  .btn-light{background:#fff;color:var(--v-700)}
+  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.32)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .arrow{font-size:17px;line-height:1}
+
+  /* ============ NAV ============ */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:0}
+  .brand img{height:26px}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{font-size:14.5px;font-weight:600;color:var(--ink-soft);transition:color .15s}
+  .nav-links a:hover{color:var(--v-600)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .menu-btn span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+
+  /* ============ HERO ============ */
+  .hero{position:relative;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.4px) 0 0/26px 26px, var(--grad);color:#fff;overflow:hidden;padding:70px 0 96px}
+  .hero::before{content:"";position:absolute;top:-24%;left:-10%;width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.20),transparent 65%);filter:blur(30px)}
+  .hero::after{content:"";position:absolute;bottom:-30%;right:-8%;width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle,rgba(38,12,84,.5),transparent 62%);filter:blur(30px)}
+  .hero .wrap{position:relative;z-index:2}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:stretch}
+  .hero-box{position:relative;display:flex;flex-direction:column;padding:14px 0}
+  .hero-box .eyebrow{color:#e7dcff}
+  .hero-box .eyebrow::before{background:rgba(255,255,255,.8)}
+  .hero-box h1{font-size:clamp(34px,4.7vw,54px);color:#fff;margin:22px 0 20px}
+  .hero-box p{color:rgba(255,255,255,.86);font-size:17px;max-width:440px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .hero-box .nestmark{margin-top:auto;padding-top:40px}
+  .hero-box .nestmark img{height:26px;filter:brightness(0) invert(1);opacity:.92}
+
+  /* hero game gallery (right column) */
+  .hero-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-content:center}
+  .hero-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block;
+    border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 34px -16px rgba(0,0,0,.55);
+    transition:transform .2s ease,box-shadow .2s ease}
+  .hero-gallery img:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 22px 44px -18px rgba(0,0,0,.6)}
+
+  /* ============ PARTNERS ============ */
+  .partners{padding:64px 0 74px;background:#fff;position:relative}
+  .partners .lbl{text-align:center;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:12px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+  /* publishing partners: logos in cards, full colour */
+  .pub-band{background:linear-gradient(180deg,#faf8ff,#fff);border-bottom:1px solid var(--line);padding:58px 0 56px}
+  .pub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .pub-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm);
+    display:grid;place-items:center;padding:12px 16px;min-height:112px;transition:transform .22s,box-shadow .22s}
+  .pub-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .pub-card img{height:96px;width:auto;max-width:96%;object-fit:contain}
+  /* media & community partners: running marquee */
+  .mq-head{padding-top:54px}
+  .marquee{overflow:hidden;padding:16px 0;--fade:90px;
+    -webkit-mask:linear-gradient(90deg,transparent,#000 var(--fade),#000 calc(100% - var(--fade)),transparent);
+            mask:linear-gradient(90deg,transparent,#000 var(--fade),#000 calc(100% - var(--fade)),transparent)}
+  .marquee-track{display:flex;align-items:center;gap:64px;width:max-content;animation:marquee 32s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track img{height:74px;width:auto;object-fit:contain;border-radius:16px;flex:0 0 auto}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+  /* ============ generic cards ============ */
+  .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;box-shadow:var(--shadow-sm);
+    transition:transform .22s ease,box-shadow .22s ease}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .card .ico{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;margin-bottom:20px;
+    background:var(--v-50);color:var(--v-600)}
+  .card .ico svg{width:26px;height:26px}
+  .card h3{font-size:20px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+  /* "what nest is": nest logo left, content (heading + fixes) right, nothing under the logo */
+  .about-top{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+  .about-logo{flex:0 0 auto;width:min(300px,62%);height:auto;align-self:center;margin:0 0 46px}
+  .about-eyebrow{align-self:center;text-transform:none;letter-spacing:.03em;margin:6px 0 8px}
+  .about-right{width:100%;min-width:0}
+  .about-right .section-head{margin:0 0 26px;max-width:none}
+  .fixes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:0}
+  @media(max-width:900px){.about-top{flex-direction:column;align-items:flex-start;gap:26px}.about-logo{width:210px}.fixes{grid-template-columns:1fr;gap:18px}}
+  .fix{display:flex;gap:14px;align-items:flex-start}
+  .fix-ic{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:15px;font-weight:800;margin-top:2px}
+  .fix h4{font-size:16px;margin-bottom:5px}
+  .fix p{color:var(--muted);font-size:14px;line-height:1.5}
+
+  .barriers{background:var(--lav)}
+
+  /* ============ STRATEGY big purple box ============ */
+  #about{padding-bottom:36px}
+  .strategy{padding:80px 0 104px}
+  .strategy .wrap{position:relative}
+  /* hands image floating over the top-right of the offers box */
+  /* 3D orbit: icons ride a tilted ellipse, passing behind the globe on the far
+     side (smaller + z-index under) and in front on the near side (larger) */
+  .offers-art{position:absolute;top:-34px;right:88px;width:min(330px,32%);aspect-ratio:1;z-index:3;pointer-events:none}
+  .offers-art .orbit-globe{position:absolute;top:50%;left:50%;width:56%;transform:translate(-50%,-50%);z-index:2;
+    filter:drop-shadow(0 22px 32px rgba(74,31,176,.55))}
+  .offers-art .orb{position:absolute;top:50%;left:50%;width:18%;aspect-ratio:1;margin:-9% 0 0 -9%;
+    transform:translate(var(--x),var(--y)) scale(var(--s));z-index:var(--z)}
+  .offers-art .orb img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(74,31,176,.45))}
+  @media(prefers-reduced-motion:no-preference){
+    .offers-art .orb{animation:orbit3d 22s linear infinite;animation-delay:calc(var(--a) * -3.667s)}
+  }
+  @keyframes orbit3d{
+    0%    {transform:translate(0,-100%) scale(.80);z-index:1}
+    8.33% {transform:translate(111%,-87%) scale(.84);z-index:1}
+    16.67%{transform:translate(192%,-50%) scale(.92);z-index:1}
+    24.9% {z-index:1}
+    25%   {transform:translate(222%,0) scale(1);z-index:3}
+    33.33%{transform:translate(192%,50%) scale(1.10);z-index:3}
+    41.67%{transform:translate(111%,87%) scale(1.17);z-index:3}
+    50%   {transform:translate(0,100%) scale(1.20);z-index:3}
+    58.33%{transform:translate(-111%,87%) scale(1.17);z-index:3}
+    66.67%{transform:translate(-192%,50%) scale(1.10);z-index:3}
+    74.9% {z-index:3}
+    75%   {transform:translate(-222%,0) scale(1);z-index:1}
+    83.33%{transform:translate(-192%,-50%) scale(.92);z-index:1}
+    91.67%{transform:translate(-111%,-87%) scale(.84);z-index:1}
+    100%  {transform:translate(0,-100%) scale(.80);z-index:1}
+  }
+  @media(max-width:960px){.offers-art{width:min(230px,31%);right:8px;top:-16px}}
+  .bigbox{
+    background:var(--grad);border-radius:var(--r-lg);padding:64px 60px;color:#fff;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .bigbox::before{content:"";position:absolute;top:-90px;right:-60px;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.18),transparent 62%)}
+  .bigbox::after{content:"";position:absolute;bottom:-120px;left:-60px;width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,0,0,.12),transparent 60%)}
+  .bigbox-head{position:relative;z-index:2;max-width:620px;margin-bottom:46px}
+  .bigbox-head .eyebrow{color:#e7dcff}
+  .bigbox-head .eyebrow::before{background:rgba(255,255,255,.85)}
+  .bigbox-head h2{font-size:clamp(28px,3.8vw,42px);color:#fff;margin-top:16px}
+  .strat-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .strat-item{padding-top:26px;border-top:2px solid rgba(255,255,255,.28)}
+  .strat-item .n{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:15px;color:rgba(255,255,255,.7);margin-bottom:14px}
+  .strat-item h3{font-size:22px;color:#fff;margin-bottom:10px}
+  .strat-item p{color:rgba(255,255,255,.82);font-size:15px}
+  .offers-note{position:relative;z-index:2;margin-top:24px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.5}
+
+  /* ============ FUNNEL ============ */
+  .funnel{background:var(--lav)}
+  /* accelerator steps: clickable step list (left) + detail panel (right), CSS-only radio tabs */
+  .fst-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .funnel-explorer{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:26px;align-items:start}
+  .funnel-chart{display:flex;flex-direction:column;gap:12px}
+  .funnel-stage{position:relative;width:100%;display:flex;align-items:center;gap:15px;cursor:pointer;
+    background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow-sm);
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .28s ease}
+  .funnel-stage:hover{transform:translateX(6px);border-color:var(--v-300);box-shadow:var(--shadow)}
+  .funnel-stage .num{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--v-50);color:var(--v-600);
+    display:grid;place-items:center;font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:18px;transition:background .28s,color .28s}
+  .funnel-stage .fs-body{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 auto}
+  .funnel-stage .fs-title{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:16.5px;color:var(--ink);transition:color .28s}
+  .funnel-stage .fs-sub{font-size:13px;color:var(--muted);line-height:1.4;transition:color .28s}
+  .funnel-stage .fs-cta{flex:0 0 auto;font-size:26px;line-height:1;font-weight:700;color:var(--v-300);opacity:.55;transition:opacity .22s,color .22s}
+  .funnel-stage:hover .fs-cta{opacity:1;color:var(--v-500)}
+  @media(prefers-reduced-motion:no-preference){.funnel-stage .fs-cta{animation:chevHint 2.4s ease-in-out infinite}}
+  @keyframes chevHint{0%,100%{transform:translateX(0)}55%{transform:translateX(4px)}}
+  /* active step (filled purple) */
+  #fst1:checked~.funnel-chart label[for="fst1"],
+  #fst2:checked~.funnel-chart label[for="fst2"],
+  #fst3:checked~.funnel-chart label[for="fst3"],
+  #fst4:checked~.funnel-chart label[for="fst4"]{background:var(--grad);border-color:transparent;transform:translateX(6px);box-shadow:0 20px 40px -20px rgba(109,40,217,.65)}
+  #fst1:checked~.funnel-chart label[for="fst1"] .num,
+  #fst2:checked~.funnel-chart label[for="fst2"] .num,
+  #fst3:checked~.funnel-chart label[for="fst3"] .num,
+  #fst4:checked~.funnel-chart label[for="fst4"] .num{background:rgba(255,255,255,.24);color:#fff}
+  #fst1:checked~.funnel-chart label[for="fst1"] .fs-title,
+  #fst2:checked~.funnel-chart label[for="fst2"] .fs-title,
+  #fst3:checked~.funnel-chart label[for="fst3"] .fs-title,
+  #fst4:checked~.funnel-chart label[for="fst4"] .fs-title{color:#fff}
+  #fst1:checked~.funnel-chart label[for="fst1"] .fs-sub,
+  #fst2:checked~.funnel-chart label[for="fst2"] .fs-sub,
+  #fst3:checked~.funnel-chart label[for="fst3"] .fs-sub,
+  #fst4:checked~.funnel-chart label[for="fst4"] .fs-sub{color:rgba(255,255,255,.85)}
+  #fst1:checked~.funnel-chart label[for="fst1"] .fs-cta,
+  #fst2:checked~.funnel-chart label[for="fst2"] .fs-cta,
+  #fst3:checked~.funnel-chart label[for="fst3"] .fs-cta,
+  #fst4:checked~.funnel-chart label[for="fst4"] .fs-cta{opacity:1;color:#fff}
+  /* right: detail panel */
+  .stage-panel{display:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 34px;box-shadow:var(--shadow)}
+  #fst1:checked~.stage-panels #fpanel1,
+  #fst2:checked~.stage-panels #fpanel2,
+  #fst3:checked~.stage-panels #fpanel3,
+  #fst4:checked~.stage-panels #fpanel4{display:block;animation:panelIn .35s ease}
+  @keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  /* JS-enhanced: smoothly animate the panel-area height + crossfade instead of snapping.
+     The container clips + carries the shadow so nothing is cut and no content spills. */
+  .stage-panels.anim{position:relative;overflow:hidden;border-radius:var(--r);box-shadow:var(--shadow);
+    transition:height .42s cubic-bezier(.4,0,.2,1)}
+  .stage-panels.anim .stage-panel{display:block;position:absolute;top:0;left:0;right:0;box-shadow:none;
+    opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none;z-index:1;
+    transition:opacity .34s ease,transform .42s cubic-bezier(.4,0,.2,1),visibility .42s}
+  #fst1:checked~.stage-panels.anim #fpanel1,
+  #fst2:checked~.stage-panels.anim #fpanel2,
+  #fst3:checked~.stage-panels.anim #fpanel3,
+  #fst4:checked~.stage-panels.anim #fpanel4{opacity:1;visibility:visible;transform:none;pointer-events:auto;z-index:2;animation:none}
+  @media(prefers-reduced-motion:reduce){
+    .stage-panels.anim{transition:none}
+    .stage-panels.anim .stage-panel{transition:none;transform:none}
+  }
+  .sp-tag{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--v-500)}
+  .sp-head h3{font-size:23px;margin:8px 0 6px}
+  .sp-head>p{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .sp-item{background:var(--lav);border-radius:16px;padding:18px 20px}
+  .sp-item .n{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:13px;color:var(--v-500);margin-bottom:8px}
+  .sp-item h4{font-size:15.5px;margin-bottom:6px}
+  .sp-item p{font-size:14px;color:var(--ink-soft);line-height:1.5}
+  .sp-sub{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .sp-sub .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .sp-sub .chips span{background:var(--v-50);color:var(--v-700);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
+  /* studio-funding amount highlight */
+  .sp-invest{background:var(--grad);border-radius:18px;padding:26px 30px;color:#fff;display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap;box-shadow:0 20px 40px -22px rgba(109,40,217,.6)}
+  .sp-invest-amt{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:clamp(34px,5vw,46px);line-height:1;color:#fff;letter-spacing:-.02em}
+  .sp-invest-label{font-size:15px;color:rgba(255,255,255,.88);font-weight:600}
+  /* completion-grant amount highlights */
+  .grant-highlights{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .grant-h{background:var(--v-50);border:1px solid var(--v-100);border-radius:14px;padding:16px 18px}
+  .grant-amt{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:27px;color:var(--v-600);line-height:1;margin-bottom:7px}
+  .grant-h p{font-size:13px;color:var(--ink-soft);line-height:1.45}
+  .grant-note{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5}
+  @media(max-width:560px){.grant-highlights{grid-template-columns:1fr}}
+  @media(max-width:900px){
+    .funnel-explorer{grid-template-columns:1fr;gap:18px}
+    .stage-panel{padding:26px 24px}
+  }
+
+  /* ============ CURRICULUM ============ */
+  .modules{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 26px;margin-bottom:52px}
+  .mod{display:flex;gap:18px;align-items:center;padding:18px 22px;border-radius:18px;border:1px solid var(--line);
+    background:#fff;transition:.2s}
+  .mod:hover{border-color:var(--v-300);background:var(--v-50)}
+  .mod .mn{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:15px;color:var(--v-500);
+    background:var(--v-50);width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto}
+  .mod:hover .mn{background:#fff}
+  .mod p{font-weight:600;font-size:15px;color:var(--ink)}
+  .perks-head{text-align:center;max-width:620px;margin:0 auto 30px}
+  .perks-head h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:clamp(22px,3vw,28px);letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+  .perks-head p{color:var(--muted);font-size:15px}
+  .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .perk{background:var(--dark-2);color:#fff;border-radius:20px;padding:26px 24px;border:1px solid rgba(255,255,255,.06)}
+  .perk .ico{width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,.22);color:#c9b6ff;display:grid;place-items:center;margin-bottom:16px}
+  .perk .ico svg{width:22px;height:22px}
+  .perk h4{font-size:16px;margin-bottom:7px}
+  .perk p{color:#a79dc4;font-size:13.5px}
+
+  /* ============ TIMELINE (slide 7 style) ============ */
+  .timeline-sec{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+  .timeline-sec::before{content:"";position:absolute;top:-20%;right:-6%;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(124,58,237,.35),transparent 65%);filter:blur(20px)}
+  .timeline-sec .section-head h2{color:#fff}
+  .timeline-sec .section-head p{color:#a79dc4}
+  .tl-card{position:relative;z-index:2;background:#fff;border-radius:var(--r-lg);padding:56px 44px 46px;box-shadow:var(--shadow-lg)}
+  .tl-track{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .tl-track::before{content:"";position:absolute;left:4%;right:4%;top:11px;height:3px;border-radius:3px;
+    background:linear-gradient(90deg,#e7dfff,#7c3aed,#4a1fb0)}
+  .tl-col{position:relative;text-align:center;padding-top:34px}
+  .tl-col .dot{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;
+    background:var(--grad);border:4px solid #fff;box-shadow:0 4px 12px rgba(109,40,217,.5)}
+  .tl-col .date{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:14px;color:var(--v-600);margin-bottom:8px}
+  .tl-col p{color:var(--ink-soft);font-size:13.5px;line-height:1.45}
+  /* timeline: the line draws in from the left, then dots + labels follow */
+  .js .tl-track.reveal{opacity:1;transform:none}
+  .js .tl-track::before{transform:scaleX(0);transform-origin:left center;transition:transform 1s cubic-bezier(.65,0,.35,1)}
+  .js .tl-track.in::before{transform:scaleX(1)}
+  .js .tl-track .tl-col{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+  .js .tl-track.in .tl-col{opacity:1;transform:none}
+  .js .tl-track.in .tl-col:nth-child(1){transition-delay:.2s}
+  .js .tl-track.in .tl-col:nth-child(2){transition-delay:.35s}
+  .js .tl-track.in .tl-col:nth-child(3){transition-delay:.5s}
+  .js .tl-track.in .tl-col:nth-child(4){transition-delay:.65s}
+  .js .tl-track.in .tl-col:nth-child(5){transition-delay:.8s}
+  .js .tl-track.in .tl-col:nth-child(6){transition-delay:.95s}
+  @media(prefers-reduced-motion:reduce){.js .tl-track::before{transform:none!important;transition:none!important}.js .tl-track .tl-col{opacity:1!important;transform:none!important;transition:none!important}}
+
+  /* ============ GUIDELINES ============ */
+  .spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .spec{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow-sm)}
+  /* "who can apply" eligibility card */
+  .prep-who{background:var(--v-50);border:1px solid var(--v-100);border-radius:var(--r);padding:30px 32px;margin-bottom:20px}
+  .prep-who h3{font-size:20px;margin-bottom:18px}
+  .prep-who ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px 28px}
+  .prep-who li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-soft);font-weight:500}
+  .prep-who li::before{content:"✓";flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+  @media(max-width:720px){.prep-who ul{grid-template-columns:1fr}}
+  .spec .k{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--v-500);margin-bottom:9px}
+  .spec p{font-size:15px;color:var(--ink-soft);font-weight:500}
+
+  /* ============ FAQ ============ */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden}
+  .faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:20px 24px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:15.5px;color:var(--ink)}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary .faq-ic{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--v-50);color:var(--v-600);
+    display:grid;place-items:center;font-size:16px;font-weight:800;transition:transform .25s ease,background .25s ease,color .25s ease}
+  .faq-item[open] summary{border-bottom:1px solid var(--line)}
+  .faq-item[open] summary .faq-ic{background:var(--grad);color:#fff;transform:rotate(45deg)}
+  .faq-item p{padding:18px 24px 22px;color:var(--muted);font-size:14.5px;line-height:1.6}
+  /* smoothly animate the answer open/close instead of snapping (Chromium 129+; degrades to instant elsewhere) */
+  @supports (interpolate-size: allow-keywords){
+    :root{interpolate-size:allow-keywords}
+    .faq-item::details-content{
+      height:0;overflow:hidden;opacity:0;
+      transition-property:height,opacity,content-visibility;
+      transition-duration:.34s;
+      transition-timing-function:cubic-bezier(.4,0,.2,1);
+      transition-behavior:allow-discrete}
+    .faq-item[open]::details-content{height:auto;opacity:1}
+    @media(prefers-reduced-motion:reduce){.faq-item::details-content{transition-duration:0s}}
+  }
+
+  /* ============ TEAM ============ */
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .member{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;text-align:center;
+    box-shadow:var(--shadow-sm);transition:transform .22s,box-shadow .22s}
+  .member:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .member .avatar{width:94px;height:94px;border-radius:50%;margin:0 auto 18px;background:var(--v-50);display:grid;place-items:center}
+  .member .avatar img{width:74px;height:74px;display:block;filter:drop-shadow(0 6px 10px rgba(74,31,176,.18))}
+  .member h3{font-size:19px;margin-bottom:4px}
+  .member .role{color:var(--v-600);font-weight:700;font-size:13.5px;font-family:"Plus Jakarta Sans",sans-serif;margin-bottom:12px}
+  .member p{color:var(--muted);font-size:14px}
+
+  /* ============ FINAL CTA ============ */
+  .cta-sec{padding:104px 0}
+  .cta-box{background:var(--grad);border-radius:var(--r-lg);padding:76px 40px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .cta-box::before{content:"";position:absolute;top:-100px;left:-40px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 62%)}
+  .cta-box::after{content:"";position:absolute;bottom:-120px;right:-40px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.12),transparent 60%)}
+  .cta-box .in{position:relative;z-index:2;max-width:640px;margin:0 auto}
+  .cta-box h2{font-size:clamp(30px,4.4vw,48px);color:#fff;margin-bottom:18px}
+  .cta-box p{color:rgba(255,255,255,.9);font-size:18px;margin-bottom:34px}
+  /* CTA "wow": diagonal light sweep, pulsing glow, launching rocket + sparkles */
+  .cta-box{z-index:1}
+  .cta-shine{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;pointer-events:none;border-radius:inherit;
+    background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-130%)}
+  .cta-deco{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .cta-deco img{display:block;width:100%;filter:drop-shadow(0 16px 22px rgba(74,31,176,.3))}
+  .cta-rocket{position:absolute;right:calc(50% - 560px);bottom:-34px;width:132px;transform:rotate(8deg)}
+  .cta-spark{position:absolute;left:calc(50% - 640px);top:44px;width:90px}
+  @media(max-width:1320px){.cta-deco{display:none}}
+  @keyframes ctaShine{0%{transform:translateX(-130%)}45%,100%{transform:translateX(130%)}}
+  @keyframes ctaGlow{0%,100%{box-shadow:var(--shadow-lg),0 0 55px -14px rgba(124,58,237,.4)}50%{box-shadow:var(--shadow-lg),0 0 100px 2px rgba(124,58,237,.7)}}
+  @keyframes ctaFloatR{from{transform:rotate(8deg) translateY(0)}to{transform:rotate(8deg) translateY(-16px)}}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--dark);color:#fff;padding:54px 0 40px}
+  .foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+  .foot .brand img{height:26px;filter:brightness(0) invert(1)}
+  .foot-links{display:flex;gap:28px;flex-wrap:wrap}
+  .foot-links a{color:#a79dc4;font-size:14px;font-weight:500;transition:.15s}
+  .foot-links a:hover{color:#fff}
+  .foot-copy{border-top:1px solid rgba(255,255,255,.08);margin-top:34px;padding-top:24px;text-align:center;color:#6f6690;font-size:13px}
+
+  /* reveal (JS-gated so content is always visible without/if JS fails) */
+  .js .reveal{opacity:0;transform:translateY(32px);transition:opacity .55s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+  .js .reveal.rv-scale{transform:scale(.9)}
+  .js .reveal.rv-l{transform:translateX(-48px)}
+  .js .reveal.rv-r{transform:translateX(48px)}
+  .js .reveal.in{opacity:1;transform:none}
+  /* staggered cascade for children of a grid */
+  .js .rv-stagger>.reveal:nth-child(2){transition-delay:.07s}
+  .js .rv-stagger>.reveal:nth-child(3){transition-delay:.14s}
+  .js .rv-stagger>.reveal:nth-child(4){transition-delay:.21s}
+  .js .rv-stagger>.reveal:nth-child(5){transition-delay:.28s}
+  .js .rv-stagger>.reveal:nth-child(6){transition-delay:.35s}
+  .js .rv-stagger>.reveal:nth-child(n+7){transition-delay:.24s}
+  @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1!important;transform:none!important;transition:none}}
+
+  /* ============ FREEFLOW DECOR ============ */
+  /* flowing wave dividers: sit at the bottom of a section, filled with the next section's colour */
+  #curriculum,.cta-sec,#guidelines,#faq,#team{position:relative}
+  .wv{position:absolute;left:0;width:100%;bottom:-1px;line-height:0;pointer-events:none;z-index:3;overflow:hidden}
+  .wv svg{display:block;width:200%;height:72px}
+  /* soft ambient colour washed into the light sections so nothing reads as a flat block */
+  .barriers{background:
+    radial-gradient(46% 42% at 7% 5%,rgba(139,108,247,.13),transparent 72%),
+    radial-gradient(42% 44% at 96% 94%,rgba(124,58,237,.10),transparent 70%),
+    var(--lav)}
+  .funnel{position:relative;background:
+    radial-gradient(40% 40% at 95% 3%,rgba(139,108,247,.14),transparent 70%),
+    radial-gradient(46% 42% at 3% 97%,rgba(184,164,245,.20),transparent 70%),
+    var(--lav)}
+  .funnel>.wrap{position:relative;z-index:2}
+  /* floating 3D step icons flanking the "How It Works" heading (decorative, pre-rotated art) */
+  .funnel-deco{position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:min(calc(100% - 24px),1300px);height:430px;pointer-events:none;z-index:1}
+  .fdeco{position:absolute;height:auto;filter:drop-shadow(0 18px 22px rgba(74,31,176,.22));user-select:none}
+  .fdeco.d1{left:0.5%;top:222px;width:138px}
+  .fdeco.d2{left:15%;top:150px;width:116px}
+  .fdeco.d3{right:15%;top:150px;width:124px}
+  .fdeco.d4{right:0.5%;top:222px;width:144px}
+  @media(max-width:1240px){.funnel-deco{display:none}}
+  #curriculum{background:
+    radial-gradient(34% 36% at 99% 2%,rgba(139,108,247,.08),transparent 70%),
+    radial-gradient(30% 34% at 1% 55%,rgba(124,58,237,.06),transparent 70%),
+    #fff}
+  /* floating game-dev doodles in the curriculum side margins (decorative) */
+  #curriculum>.wrap{position:relative;z-index:1}
+  .curr-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  /* each doodle: --f = how far into the side margin (0 = beside content, 1 = viewport edge),
+     --w = size, top set inline. Anchored to the content edge so it never overlaps text. */
+  .cdeco{position:absolute;width:var(--w,48px);opacity:.92}
+  .cdeco.l{right:calc(50% + var(--base,380px) + (50% - var(--base,380px)) * var(--f,.25))}
+  .cdeco.r{left:calc(50% + var(--base,380px) + (50% - var(--base,380px)) * var(--f,.25))}
+  /* reusable decoration layer for other section headings */
+  .prep-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;--base:225px}
+  #guidelines>.wrap{position:relative;z-index:1}
+  @media(max-width:1080px){.prep-deco{display:none}}
+  .cdeco img{display:block;width:100%;height:auto;transform:rotate(var(--r,0deg));filter:drop-shadow(0 12px 16px rgba(74,31,176,.20))}
+  /* depth-of-field tiers: softer + more transparent = further back */
+  .cdeco.soft{opacity:.7}
+  .cdeco.soft img{filter:blur(1.5px) drop-shadow(0 8px 12px rgba(74,31,176,.15))}
+  .cdeco.far{opacity:.5}
+  .cdeco.far img{filter:blur(3.4px)}
+  .cdeco.big{opacity:.32}
+  .cdeco.big img{filter:blur(7px)}
+  @media(max-width:1400px){.curr-deco{display:none}}
+  #team{background:
+    radial-gradient(36% 42% at 3% 5%,rgba(139,108,247,.08),transparent 72%),
+    radial-gradient(34% 38% at 97% 92%,rgba(184,164,245,.14),transparent 70%),
+    var(--lav)}
+  /* dotted texture on the dark timeline block for depth */
+  .timeline-sec{background-color:var(--dark);
+    background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.4px);background-size:26px 26px}
+  /* flowing "stream" lines behind the hero content */
+  .hero-flow{position:absolute;inset:0;z-index:1;opacity:.55;pointer-events:none;overflow:hidden}
+  .hero-flow svg{position:absolute;inset:0;width:100%;height:100%}
+  /* faint swirl watermark echoing the nest mark inside the purple boxes */
+  .flow-mark{position:absolute;pointer-events:none;opacity:.12;z-index:1;color:#fff}
+  .flow-mark svg{width:100%;height:100%;display:block}
+
+  /* ============ ANIMATED BACKGROUND (wave motion) ============ */
+  @media(prefers-reduced-motion:no-preference){
+    .wv svg{animation:waveflow 16s linear infinite}
+    #curriculum .wv svg{animation-duration:19s}
+    .timeline-sec .wv svg{animation-duration:21s}
+    .cta-sec .wv svg{animation-duration:24s}
+    .hero-flow{animation:heroDrift 16s ease-in-out infinite alternate}
+    .hero-flow path{stroke-dasharray:220 170;animation:streamFlow 3s linear infinite}
+    .hero-flow path:nth-of-type(2){animation-duration:4.2s;animation-direction:reverse}
+    .hero-flow path:nth-of-type(3){animation-duration:5.2s}
+    .hero::before{animation:floatA 22s ease-in-out infinite alternate}
+    .hero::after{animation:floatB 26s ease-in-out infinite alternate}
+    .timeline-sec::before{animation:floatB 24s ease-in-out infinite alternate}
+    .fdeco{animation:decoFloat 6s ease-in-out infinite alternate}
+    .fdeco.d2{animation-duration:7.2s;animation-delay:-1.5s}
+    .fdeco.d3{animation-duration:6.6s;animation-delay:-.8s}
+    .fdeco.d4{animation-duration:7.8s;animation-delay:-2.4s}
+    .cdeco{animation:decoFloat 7s ease-in-out infinite alternate}
+    .cdeco:nth-child(2n){animation-duration:8.6s;animation-delay:-2.4s}
+    .cdeco:nth-child(3n){animation-name:decoBob;animation-duration:6.6s}
+    .cdeco:nth-child(4n){animation-delay:-3.6s}
+    .cdeco:nth-child(5n){animation-duration:9.2s;animation-delay:-1.4s}
+    .cta-shine{animation:ctaShine 5.5s ease-in-out infinite}
+    .cta-box{animation:ctaGlow 4.6s ease-in-out infinite}
+    .cta-rocket{animation:ctaFloatR 5.5s ease-in-out infinite alternate}
+    .cta-spark{animation:decoFloat 4.4s ease-in-out infinite alternate}
+  }
+  @keyframes waveflow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes heroDrift{from{transform:translate3d(-3%,0,0)}to{transform:translate3d(3%,-2.5%,0)}}
+  @keyframes streamFlow{to{stroke-dashoffset:-390}}
+  @keyframes floatA{from{transform:translate(0,0) scale(1)}to{transform:translate(46px,34px) scale(1.12)}}
+  @keyframes floatB{from{transform:translate(0,0) scale(1)}to{transform:translate(-46px,-30px) scale(1.1)}}
+  @keyframes decoFloat{from{transform:translateY(0)}to{transform:translateY(-15px)}}
+  @keyframes decoBob{from{transform:translateY(3px) rotate(-9deg)}to{transform:translateY(-14px) rotate(9deg)}}
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:22px}
+    .hero-gallery{max-width:460px;margin:0 auto}
+    .cards-3,.strat-grid,.funnel-grid,.perks,.team-grid,.spec-grid{grid-template-columns:1fr 1fr}
+    .modules{grid-template-columns:1fr}
+    .guide-grid{grid-template-columns:1fr}
+    .tl-track{grid-template-columns:repeat(2,1fr);gap:28px 14px}
+    .tl-track::before{display:none}
+    .tl-col{text-align:left;padding-top:0;padding-left:32px}
+    .tl-col .dot{left:6px;top:4px}
+  }
+  @media(max-width:720px){
+    .section{padding:74px 0}
+    .nav-links,.nav-cta .btn{display:none}
+    .menu-btn{display:flex}
+    .nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;background:#fff;
+      padding:22px 28px;gap:18px;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+    .hero-box{padding:6px 0}
+    .bigbox,.cta-box{padding:44px 28px}
+    .bigbox{border-radius:var(--r)}
+    .cards-3,.strat-grid,.funnel-grid,.perks,.team-grid,.grants,.spec-grid,.fixes{grid-template-columns:1fr}
+    .tl-track{grid-template-columns:1fr}
+    .tl-card{padding:36px 24px}
+    .cta-box h2{font-size:30px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand"><img src="logos/nestlogo.svg" alt="nest"></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#funnel">Steps</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#team">Team</a>
+      <a href="#guidelines">Prepare</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#apply" class="btn btn-primary">Apply Now</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-flow" aria-hidden="true">
+    <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" fill="none">
+      <defs>
+        <linearGradient id="flowA" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+          <stop offset=".5" stop-color="#ffffff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M-80,150 C300,30 560,300 900,180 S1400,110 1560,300" stroke="url(#flowA)" stroke-width="2"/>
+      <path d="M-80,320 C320,190 640,450 980,320 S1460,250 1560,430" stroke="url(#flowA)" stroke-width="1.5"/>
+      <path d="M-80,540 C260,430 660,660 1010,540 S1420,470 1560,610" stroke="url(#flowA)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-box reveal">
+        <span class="eyebrow">Nest Game Incubator · Batch 1 · Indonesia · 2026</span>
+        <h1>Build the Next Mobile Game Hit</h1>
+        <p>You build the game. We back it with completion grants and up to <strong>$20K</strong> in studio investment.</p>
+        <div class="hero-cta">
+          <a href="https://forms.gle/ESYg449EdcBz5Yp36" target="_blank" rel="noopener" class="btn btn-light">Submit Your Portfolio <span class="arrow">→</span></a>
+          <a href="https://discord.gg/d8e9aYfCs" target="_blank" rel="noopener" class="btn btn-ghost">Join our Discord</a>
+        </div>
+        <div class="nestmark"><img src="logos/nestlogo.svg" alt="nest"></div>
+      </div>
+
+      <div class="hero-gallery reveal">
+        <img src="logos/game1.png" alt="Roster title" loading="lazy">
+        <img src="logos/game2.png" alt="Roster title" loading="lazy">
+        <img src="logos/game3.png" alt="Roster title" loading="lazy">
+        <img src="logos/game4.png" alt="Roster title" loading="lazy">
+        <img src="logos/game5.png" alt="Roster title" loading="lazy">
+        <img src="logos/game6.png" alt="Roster title" loading="lazy">
+        <img src="logos/game7.png" alt="Roster title" loading="lazy">
+        <img src="logos/game8.png" alt="Roster title" loading="lazy">
+        <img src="logos/game9.png" alt="Roster title" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#ffffff"/></svg></div>
+</section>
+
+<!-- WHAT NEST IS -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-top">
+      <span class="eyebrow about-eyebrow reveal">About</span>
+      <img class="about-logo reveal" src="logos/nestlogo.svg" alt="nest">
+      <div class="about-right">
+        <div class="section-head left reveal">
+          <h2>A game accelerator that provides <span class="grad-text">seed funding, intensive mentorship, and connections</span> for gamedevs</h2>
+          <p>Indonesia has the talent, but three structural gaps keep hit games from shipping: no end-to-end mobile-dev education, no capital, and a lingering PC-first mindset. Nest closes all three, investing in early-stage Indonesian studios and taking them from prototype to market, milestone by milestone, across production, monetization, live-ops, and pitch craft.</p>
+        </div>
+        <div class="fixes rv-stagger">
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>The know-how</h4><p>An end-to-end curriculum and a real community, so nobody learns mobile development alone.</p></div>
+          </div>
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>The capital</h4><p>Grants, monthly guarantees, and direct funding, so money never stalls a good team.</p></div>
+          </div>
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>The mobile mindset</h4><p>Courses built on how the mobile market really works, so you build for the platform that pays.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY (big purple box) -->
+<section class="strategy" id="strategy">
+  <div class="wrap">
+    <div class="offers-art reveal" aria-hidden="true">
+      <img class="orbit-globe" src="logos/globe.png" alt="">
+      <div class="orb" style="--a:0;--x:0%;--y:-100%;--s:.8;--z:1"><img src="logos/emoji/coin.png" alt=""></div>
+      <div class="orb" style="--a:1;--x:192%;--y:-50%;--s:.92;--z:1"><img src="logos/emoji/grad.png" alt=""></div>
+      <div class="orb" style="--a:2;--x:192%;--y:50%;--s:1.1;--z:3"><img src="logos/emoji/net.png" alt=""></div>
+      <div class="orb" style="--a:3;--x:0%;--y:100%;--s:1.2;--z:3"><img src="logos/emoji/handshake.png" alt=""></div>
+      <div class="orb" style="--a:4;--x:-192%;--y:50%;--s:1.1;--z:3"><img src="logos/emoji/rocket.png" alt=""></div>
+      <div class="orb" style="--a:5;--x:-192%;--y:-50%;--s:.92;--z:1"><img src="logos/emoji/tools.png" alt=""></div>
+    </div>
+    <div class="bigbox reveal">
+      <div class="flow-mark" style="right:-30px;bottom:-40px;width:280px;height:280px"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M104,24 A78,78 0 1 1 42,150 A46,46 0 1 0 150,104"/></svg></div>
+      <div class="bigbox-head">
+        <span class="eyebrow">What Nest Offers</span>
+        <h2>Everything you need to build, ship, and scale</h2>
+      </div>
+      <div class="strat-grid rv-stagger">
+        <div class="strat-item reveal rv-scale">
+          <div class="n">01</div>
+          <h3>Funding</h3>
+          <p>Grants, a monthly Minimum Guarantee, and direct funding for top studios.*</p>
+        </div>
+        <div class="strat-item reveal rv-scale">
+          <div class="n">02</div>
+          <h3>Mentorship</h3>
+          <p>A 6-week bootcamp and 1-on-1 guidance from operators who have shipped.</p>
+        </div>
+        <div class="strat-item reveal rv-scale">
+          <div class="n">03</div>
+          <h3>Premium Resources</h3>
+          <p>Premium dev kits, live market data, analytics &amp; MMP, and ops support.</p>
+        </div>
+        <div class="strat-item reveal rv-scale">
+          <div class="n">04</div>
+          <h3>Publishing &amp; Network</h3>
+          <p>A guaranteed route to market through our publisher partner network.</p>
+        </div>
+      </div>
+      <p class="offers-note">* Grants up to Rp 15 Million, a monthly Minimum Guarantee (MG) that pays your team while you build, and up to $20K direct investment for top-performing studios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNNEL -->
+<section class="section funnel" id="funnel">
+  <div class="funnel-deco" aria-hidden="true">
+    <img class="fdeco d1" src="logos/step1.png" alt="" draggable="false">
+    <img class="fdeco d2" src="logos/step2.png" alt="" draggable="false">
+    <img class="fdeco d3" src="logos/step3.png" alt="" draggable="false">
+    <img class="fdeco d4" src="logos/step4.png" alt="" draggable="false">
+  </div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center">How It Works</span>
+      <h2>Four steps from <span class="grad-text">open call to funded studio</span></h2>
+      <p>A clear path with no upfront fee, and commitment scales only as you advance. Click any step on the left to see the full detail.</p>
+    </div>
+    <div class="funnel-explorer reveal">
+      <input type="radio" name="fstage" id="fst1" class="fst-radio" checked>
+      <input type="radio" name="fstage" id="fst2" class="fst-radio">
+      <input type="radio" name="fstage" id="fst3" class="fst-radio">
+      <input type="radio" name="fstage" id="fst4" class="fst-radio">
+      <div class="funnel-chart">
+        <label class="funnel-stage" for="fst1">
+          <span class="num">1</span>
+          <span class="fs-body"><span class="fs-title">Portfolio Submissions</span><span class="fs-sub">Open call. No fee, no commitment.</span></span>
+          <span class="fs-cta" aria-hidden="true">›</span>
+        </label>
+        <label class="funnel-stage" for="fst2">
+          <span class="num">2</span>
+          <span class="fs-body"><span class="fs-title">Bootcamp &amp; Mentorship</span><span class="fs-sub">6-week cohort plus Rp 8 to 15 Mil completion grant.</span></span>
+          <span class="fs-cta" aria-hidden="true">›</span>
+        </label>
+        <label class="funnel-stage" for="fst3">
+          <span class="num">3</span>
+          <span class="fs-body"><span class="fs-title">Developer In Residence</span><span class="fs-sub">Guaranteed publishing contract and MG.</span></span>
+          <span class="fs-cta" aria-hidden="true">›</span>
+        </label>
+        <label class="funnel-stage" for="fst4">
+          <span class="num">4</span>
+          <span class="fs-body"><span class="fs-title">Studio Investment</span><span class="fs-sub">Optional, up to $20K investment.</span></span>
+          <span class="fs-cta" aria-hidden="true">›</span>
+        </label>
+      </div>
+      <div class="stage-panels">
+        <div class="stage-panel" id="fpanel1">
+          <div class="sp-head">
+            <div class="sp-tag">Step 01 · Open call</div>
+            <h3>Portfolio Submissions</h3>
+            <p>No commitment, no fee, any genre. Show us you can execute and you are in the running.</p>
+          </div>
+          <div class="sp-grid">
+            <div class="sp-item"><h4>Who can apply</h4><p>Indonesian devs and studios aged 18+, with a playable portfolio. Any genre, any team size.</p></div>
+            <div class="sp-item"><h4>How to apply</h4><p>Submit a portfolio, team profile, or a mobile pitch deck. No prototype, fee, or contract required at this stage.</p></div>
+            <div class="sp-item"><h4>Solo developers</h4><p>Apply on your own, no team required. Or opt in to be matched with other developers into a team.</p></div>
+          </div>
+        </div>
+        <div class="stage-panel" id="fpanel2">
+          <div class="sp-head">
+            <div class="sp-tag">Step 02 · 6-week cohort</div>
+            <h3>Bootcamp &amp; 1-on-1 Mentorship</h3>
+            <p>Ten workshops over six weeks, two a week, plus mentorship, market data and dev kits. Ship prototypes and earn a completion grant.</p>
+          </div>
+          <div class="sp-grid">
+            <div class="sp-item"><div class="n">01</div><h4>1-on-1 mentorship</h4><p>Direct sessions with Nest's operators, developers and designers.</p></div>
+            <div class="sp-item"><div class="n">02</div><h4>6-week bootcamp</h4><p>Production, monetization and liveops, taught by Nest pros and studio partners.</p></div>
+            <div class="sp-item"><div class="n">03</div><h4>Free premium market data</h4><p>Live analytics and market data across the full Nest game roster.</p></div>
+            <div class="sp-item"><div class="n">04</div><h4>Free premium dev kit</h4><p>Curated Unity Asset Store toolkits, provided free to the cohort.</p></div>
+          </div>
+          <div class="sp-sub">
+            <div class="sp-tag">Completion grant</div>
+            <div class="grant-highlights">
+              <div class="grant-h">
+                <div class="grant-amt">Rp 8 Mil</div>
+                <p>Base grant, just for finishing the 6-week cohort.</p>
+              </div>
+              <div class="grant-h">
+                <div class="grant-amt">Rp 15 Mil</div>
+                <p>Up to this much for a high-potential prototype.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stage-panel" id="fpanel3">
+          <div class="sp-head">
+            <div class="sp-tag">Step 03 · Guaranteed publishing</div>
+            <h3>Developer in Residence</h3>
+            <p>Top-performing teams sign with Nest. We fund the build and take the game to market, in three steps from contract to global release.</p>
+          </div>
+          <div class="sp-grid">
+            <div class="sp-item"><div class="n">01</div><h4>Sign the deal</h4><p>Top cohort teams earn a publishing contract with Nest.</p></div>
+            <div class="sp-item"><div class="n">02</div><h4>Nest funds, you build</h4><p>We back the team financially so you can focus entirely on the game.</p></div>
+            <div class="sp-item"><div class="n">03</div><h4>Take it to market</h4><p>We pitch global publishers first. If none land, Nest publishes it.</p></div>
+          </div>
+          <div class="sp-sub">
+            <div class="sp-tag">Post-signing support</div>
+            <div class="chips"><span>Monthly minimum guarantee</span><span>Liveops support</span><span>UA budget &amp; creative testing</span><span>Analytics &amp; MMP</span><span>Global publisher outreach</span></div>
+          </div>
+        </div>
+        <div class="stage-panel" id="fpanel4">
+          <div class="sp-head">
+            <div class="sp-tag">Step 04 · Optional</div>
+            <h3>Studio Investment</h3>
+            <p>Direct capital for the studios with the strongest potential.</p>
+          </div>
+          <div class="sp-invest">
+            <div class="sp-invest-amt">Up to $20K</div>
+            <div class="sp-invest-label">direct investment for a top-performing studio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="section" id="curriculum">
+  <div class="curr-deco" aria-hidden="true">
+    <span class="cdeco l" style="--f:0;--w:78px;--r:-14deg;top:5%"><img src="logos/emoji/alien.png" alt=""></span>
+    <span class="cdeco l" style="--f:.06;--w:68px;--r:13deg;top:15%"><img src="logos/emoji/crystalball.png" alt=""></span>
+    <span class="cdeco r" style="--f:0;--w:86px;--r:-16deg;top:7%"><img src="logos/emoji/videogame.png" alt=""></span>
+    <span class="cdeco r" style="--f:.06;--w:72px;--r:15deg;top:16%"><img src="logos/emoji/heart.png" alt=""></span>
+  </div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center">The 6-Week Curriculum</span>
+      <h2>10 core modules, <span class="grad-text">taught by publishers</span></h2>
+      <p>From finding a hit idea to shipping an optimized, analytics-ready mobile MVP.</p>
+    </div>
+    <div class="modules rv-stagger">
+      <div class="mod reveal"><div class="mn">01</div><p>MVP Part I: Stop Wasting Time in Game Development</p></div>
+      <div class="mod reveal"><div class="mn">02</div><p>What Mobile Game Publishers Are Looking For</p></div>
+      <div class="mod reveal"><div class="mn">03</div><p>MVP Part II: Building a Mobile Game MVP</p></div>
+      <div class="mod reveal"><div class="mn">04</div><p>Ideation Pt. I: The Easiest Way to Find Inspiration for Hit Games</p></div>
+      <div class="mod reveal"><div class="mn">05</div><p>Ideation Pt. II: Ideation Methodology and Tools</p></div>
+      <div class="mod reveal"><div class="mn">06</div><p>Methodology and Tools for Rapid Prototyping</p></div>
+      <div class="mod reveal"><div class="mn">07</div><p>Level Design Principles</p></div>
+      <div class="mod reveal"><div class="mn">08</div><p>Game Optimization 101</p></div>
+      <div class="mod reveal"><div class="mn">09</div><p>Game Analytics 101: Measuring Your Game Metrics</p></div>
+      <div class="mod reveal"><div class="mn">10</div><p>Learn from Mistakes: Case Studies on Why Good Games Failed</p></div>
+    </div>
+  </div>
+  <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#f5f2ff"/></svg></div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Meet the Team &amp; Mentors</span>
+      <h2>Learn directly from <span class="grad-text">the operators</span></h2>
+      <p>Not theorists. The people who ship and publish hit mobile titles.</p>
+    </div>
+    <div class="team-grid rv-stagger">
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/exec.png" alt=""></div>
+        <h3>Ghazy Azhar</h3>
+        <div class="role">CEO of Nest</div>
+        <p>Ex-CEO of Play Castle Studio and F2P expert. 7M+ installs, 13M Roblox visits, 100K DAU.</p>
+      </div>
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/teacher.png" alt=""></div>
+        <h3>Haekhel Fachrialdy</h3>
+        <div class="role">VP Publishing, Noctua Games</div>
+        <p>Leads Nest's games publishing across the full roster. 25M+ installs, 200K DAU.</p>
+      </div>
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/dev.png" alt=""></div>
+        <h3>Usaya</h3>
+        <div class="role">Game Developer</div>
+        <p>The developer behind Nest's most successful game to date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT TO PREPARE -->
+<section class="section barriers" id="guidelines">
+  <div class="prep-deco" aria-hidden="true">
+    <span class="cdeco l" style="--f:.05;--w:66px;--r:-13deg;top:11%"><img src="logos/step1.png" alt=""></span>
+    <span class="cdeco r" style="--f:.05;--w:66px;--r:13deg;top:11%"><img src="logos/step1.png" alt=""></span>
+  </div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center">What to Prepare</span>
+      <h2>Before you <span class="grad-text">apply</span></h2>
+      <p>Simply submit your portfolio to get started. No upfront prototype, fees, or contracts required. You'll create your game later, during the program.</p>
+    </div>
+    <div class="prep-who reveal">
+      <h3>Who can apply</h3>
+      <ul>
+        <li>Indonesian studios or individual developers (18+) with an existing game portfolio.</li>
+        <li>Ready to fully commit to the 6-week bootcamp.</li>
+      </ul>
+    </div>
+    <div class="spec-grid rv-stagger">
+      <div class="spec reveal"><div class="k">How to Apply</div><p>Submit your portfolio, team profile, or mobile pitch deck via our online form.</p></div>
+      <div class="spec reveal"><div class="k">Engine</div><p>Games must be built in Unity.</p></div>
+      <div class="spec reveal"><div class="k">Genres</div><p>Mobile only: Casual, Puzzle, Idle/Incremental, Simulation, Arcade, and more.</p></div>
+      <div class="spec reveal"><div class="k">Team Size</div><p>No minimum or maximum. Solo developers are welcome.</p></div>
+    </div>
+  </div>
+  <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#0e0a1f"/></svg></div>
+</section>
+
+<!-- TIMELINE (slide 7 style) -->
+<section class="section timeline-sec" id="timeline">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center on-dark">Program Timeline</span>
+      <h2>From launch to <span class="grad-text">first funding</span></h2>
+      <p>The road through 2026. Six milestones from community outreach to funded studios.</p>
+    </div>
+    <div class="tl-card reveal">
+      <div class="tl-track reveal">
+        <div class="tl-col"><span class="dot"></span><div class="date">Jul 2026</div><p>Community, university &amp; media outreach</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">15 Jul-15 Aug</div><p>Open submissions</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">20 Aug-1 Oct</div><p>First cohort incubator</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">20 Sep</div><p>First prototypes built</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">30 Nov</div><p>Sign high-performance teams</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">Jan-Mar 2027</div><p>Investment</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#ffffff"/></svg></div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="pub-band">
+    <div class="wrap">
+      <p class="lbl">Our Publishing Partners</p>
+      <div class="pub-grid rv-stagger">
+        <div class="pub-card reveal rv-scale"><img src="logos/ikame.png" alt="iKame"></div>
+        <div class="pub-card reveal rv-scale"><img src="logos/VNG.png" alt="VNG"></div>
+        <div class="pub-card reveal rv-scale"><img src="logos/Noctua.png" alt="Noctua"></div>
+        <div class="pub-card reveal rv-scale"><img src="logos/ABI.png" alt="ABI"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><p class="lbl mq-head">Media &amp; Community Partners</p></div>
+  <div class="marquee" role="img" aria-label="Media and community partners">
+    <div class="marquee-track" aria-hidden="true">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-sec" id="apply">
+  <div class="cta-deco" aria-hidden="true">
+    <span class="cta-rocket"><img src="logos/emoji/rocket.png" alt=""></span>
+    <span class="cta-spark"><img src="logos/emoji/sparkles.png" alt=""></span>
+  </div>
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <span class="cta-shine"></span>
+      <div class="flow-mark" style="left:-34px;top:-46px;width:240px;height:240px"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M104,24 A78,78 0 1 1 42,150 A46,46 0 1 0 150,104"/></svg></div>
+      <div class="in">
+        <h2>Build your next hit with Nest</h2>
+        <p>Help us build the next global mobile hits, made in Indonesia.</p>
+        <a href="https://forms.gle/ESYg449EdcBz5Yp36" target="_blank" rel="noopener" class="btn btn-light" style="font-size:16px;padding:16px 34px">Apply Now <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary><span>Do I need a finished, shipped game to apply?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>No. A polished concept or a vertical slice is enough for your portfolio at this stage.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>What happens if I'm not selected for Stage 03, Developer in Residence?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>You can still redeem your completion grant, as long as you finish all mentorship sessions and graduate the cohort.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>Is there a fee to apply?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>No, there's no fee at any stage.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>I'm a solo developer. What does "matched into a team" mean?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>We believe plenty of solo developers can deliver hit games on their own. Keep building solo, or connect with other developers in our community later if you want to team up.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>Who owns the IP of my game?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>Your studio keeps 100% of the IP.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>For Studio Investment, who decides between equity or revenue share?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>We'll discuss and agree on whichever structure works best for both sides.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>Can non-Indonesian developers apply?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>For Batch 1, the program is open to Indonesian developers and studios only.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span>Can I apply again if I don't make it into Batch 1?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>Yes, as long as you've grown and learned from the feedback since your last attempt.</p>
+      </details>
+    </div>
+  </div>
+  <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#0e0a1f"/></svg></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a href="#top" class="brand"><img src="logos/nestlogo.svg" alt="nest"></a>
+      <nav class="foot-links">
+        <a href="#about">About</a>
+        <a href="#funnel">Steps</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#team">Team</a>
+        <a href="#guidelines">Prepare</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <div class="foot-copy">© 2026 Nest Labs</div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
+  mb&&mb.addEventListener('click',function(){nl.classList.toggle('open')});
+  nl&&nl.addEventListener('click',function(e){if(e.target.tagName==='A')nl.classList.remove('open')});
+  // reveal on scroll
+  var reveals=document.querySelectorAll('.reveal');
+  function revealAll(){reveals.forEach(function(el){el.classList.add('in')})}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){io.observe(el)});
+  } else { revealAll(); }
+  // accelerator steps: animate the panel-area height + crossfade (enhances the CSS-only tabs)
+  (function(){
+    var wrap=document.querySelector('.stage-panels');
+    if(!wrap) return;
+    var map={fst1:'fpanel1',fst2:'fpanel2',fst3:'fpanel3',fst4:'fpanel4'};
+    function active(){var r=document.querySelector('.fst-radio:checked');return document.getElementById(r?map[r.id]:'fpanel1');}
+    // lock in the current in-flow height, THEN switch panels to absolute (no collapse flash)
+    var p0=active();
+    wrap.style.height=(p0?p0.offsetHeight:0)+'px';
+    wrap.classList.add('anim');
+    function grow(){var p=active();if(p)wrap.style.height=p.offsetHeight+'px';}
+    function snap(){var p=active();if(!p)return;var t=wrap.style.transition;wrap.style.transition='none';wrap.style.height=p.offsetHeight+'px';void wrap.offsetHeight;wrap.style.transition=t;}
+    document.querySelectorAll('.fst-radio').forEach(function(r){r.addEventListener('change',grow);});
+    var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(snap,120);});
+    window.addEventListener('load',snap);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(snap);
+  })();
+  // globe orbit reacts to scrolling: spins up fast while you scroll, eases back when you stop.
+  // uses playbackRate (Web Animations API) so the speed change never makes the icons jump.
+  (function(){
+    var orbs=document.querySelectorAll('.offers-art .orb');
+    if(!orbs.length||!orbs[0].getAnimations) return;
+    var anims=[];
+    orbs.forEach(function(o){o.getAnimations().forEach(function(a){anims.push(a)})});
+    if(!anims.length) return;                 // reduced-motion: no animations to speed up
+    var rate=1,target=1,lastY=window.scrollY,raf=null,idle;
+    function tick(){
+      rate+=(target-rate)*0.2;                // ease toward the target speed
+      if(Math.abs(target-rate)<0.05) rate=target;
+      anims.forEach(function(a){a.playbackRate=rate});
+      if(rate!==target||target!==1){raf=requestAnimationFrame(tick)} else {raf=null}
+    }
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY, v=Math.abs(y-lastY); lastY=y;
+      target=Math.min(1+v*2.4,70);            // faster scrolling => faster orbit (capped)
+      if(!raf) raf=requestAnimationFrame(tick);
+      clearTimeout(idle);
+      idle=setTimeout(function(){target=1;if(!raf)raf=requestAnimationFrame(tick)},140);
+    },{passive:true});
+  })();
+</script>
+</body>
+</html>
