@@ -131,7 +131,9 @@
     letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
   /* publishing partners: logos in cards, full colour */
   .pub-band{background:linear-gradient(180deg,#faf8ff,#fff);border-bottom:1px solid var(--line);padding:58px 0 56px}
-  .pub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .pub-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
+  .pub-grid .pub-card{width:calc(25% - 18px);min-width:180px}
+  .supported-band{background:linear-gradient(180deg,#faf8ff,#fff);border-bottom:1px solid var(--line);padding:58px 0 56px}
   .pub-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm);
     display:grid;place-items:center;padding:12px 16px;min-height:112px;transition:transform .22s,box-shadow .22s}
   .pub-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
@@ -876,10 +878,10 @@
     </div>
     <div class="team-grid rv-stagger">
       <div class="member reveal rv-scale">
-        <div class="avatar"><img src="logos/emoji/exec.png" alt=""></div>
-        <h3>Ghazy Azhar</h3>
-        <div class="role">CEO of Nest</div>
-        <p>Ex-CEO of Play Castle Studio and F2P expert. 7M+ installs, 13M Roblox visits, 100K DAU.</p>
+        <div class="avatar"><img src="logos/emoji/dev.png" alt=""></div>
+        <h3>Usaya</h3>
+        <div class="role">Game Developer</div>
+        <p>Developer behind Hamster Jump, Cat Escape, more than 50M installs.</p>
       </div>
       <div class="member reveal rv-scale">
         <div class="avatar"><img src="logos/emoji/teacher.png" alt=""></div>
@@ -888,10 +890,10 @@
         <p>Leads Nest's games publishing across the full roster. 25M+ installs, 200K DAU.</p>
       </div>
       <div class="member reveal rv-scale">
-        <div class="avatar"><img src="logos/emoji/dev.png" alt=""></div>
-        <h3>Usaya</h3>
-        <div class="role">Game Developer</div>
-        <p>The developer behind Nest's most successful game to date.</p>
+        <div class="avatar"><img src="logos/emoji/exec.png" alt=""></div>
+        <h3>Ghazy Azhar</h3>
+        <div class="role">CEO of Nest</div>
+        <p>Ex-CEO of Play Castle Studio and F2P expert. 7M+ installs, 13M Roblox visits, 100K DAU.</p>
       </div>
     </div>
   </div>
@@ -936,11 +938,10 @@
     </div>
     <div class="tl-card reveal">
       <div class="tl-track reveal">
-        <div class="tl-col"><span class="dot"></span><div class="date">Jul 2026</div><p>Community, university &amp; media outreach</p></div>
-        <div class="tl-col"><span class="dot"></span><div class="date">15 Jul-15 Aug</div><p>Open submissions</p></div>
-        <div class="tl-col"><span class="dot"></span><div class="date">20 Aug-1 Oct</div><p>First cohort incubator</p></div>
-        <div class="tl-col"><span class="dot"></span><div class="date">20 Sep</div><p>First prototypes built</p></div>
-        <div class="tl-col"><span class="dot"></span><div class="date">30 Nov</div><p>Sign high-performance teams</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">21-28 Aug</div><p>Open submissions</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">1 Sept-7 October 2026</div><p>First cohort incubator</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">30 Sept</div><p>First prototypes built</p></div>
+        <div class="tl-col"><span class="dot"></span><div class="date">Nov</div><p>Sign high-performance teams</p></div>
         <div class="tl-col"><span class="dot"></span><div class="date">Jan-Mar 2027</div><p>Investment</p></div>
       </div>
     </div>
@@ -954,10 +955,15 @@
     <div class="wrap">
       <p class="lbl">Our Publishing Partners</p>
       <div class="pub-grid rv-stagger">
-        <div class="pub-card reveal rv-scale"><img src="logos/ikame.png" alt="iKame"></div>
-        <div class="pub-card reveal rv-scale"><img src="logos/VNG.png" alt="VNG"></div>
         <div class="pub-card reveal rv-scale"><img src="logos/Noctua.png" alt="Noctua"></div>
-        <div class="pub-card reveal rv-scale"><img src="logos/ABI.png" alt="ABI"></div>
+      </div>
+    </div>
+  </div>
+  <div class="supported-band">
+    <div class="wrap">
+      <p class="lbl">Supported By</p>
+      <div class="pub-grid rv-stagger">
+        <div class="pub-card reveal rv-scale"><img src="logos/EKRAF.png" alt="EKRAF"></div>
       </div>
     </div>
   </div>
