@@ -120,6 +120,7 @@
 
   /* hero game gallery (right column) */
   .hero-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-content:center}
+  .hero-gallery-note{margin-top:12px;text-align:center;font-size:12px;color:rgba(255,255,255,.65)}
   .hero-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block;
     border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 34px -16px rgba(0,0,0,.55);
     transition:transform .2s ease,box-shadow .2s ease}
@@ -559,7 +560,7 @@
   /* ============ RESPONSIVE ============ */
   @media(max-width:960px){
     .hero-grid{grid-template-columns:1fr;gap:22px}
-    .hero-gallery{max-width:460px;margin:0 auto}
+    .hero-gallery-wrap,.hero-gallery{max-width:460px;margin:0 auto}
     .cards-3,.strat-grid,.funnel-grid,.perks,.team-grid,.spec-grid{grid-template-columns:1fr 1fr}
     .modules{grid-template-columns:1fr}
     .guide-grid{grid-template-columns:1fr}
@@ -635,16 +636,19 @@
         <div class="nestmark"><img src="logos/nestlogo.svg" alt="nest"></div>
       </div>
 
-      <div class="hero-gallery reveal">
-        <img src="logos/game1.png" alt="Roster title" loading="lazy">
-        <img src="logos/game2.png" alt="Roster title" loading="lazy">
-        <img src="logos/game3.png" alt="Roster title" loading="lazy">
-        <img src="logos/game4.png" alt="Roster title" loading="lazy">
-        <img src="logos/game5.png" alt="Roster title" loading="lazy">
-        <img src="logos/game6.png" alt="Roster title" loading="lazy">
-        <img src="logos/game7.png" alt="Roster title" loading="lazy">
-        <img src="logos/game8.png" alt="Roster title" loading="lazy">
-        <img src="logos/game9.png" alt="Roster title" loading="lazy">
+      <div class="hero-gallery-wrap reveal">
+        <div class="hero-gallery">
+          <img src="logos/game1.png" alt="Roster title" loading="lazy">
+          <img src="logos/game2.png" alt="Roster title" loading="lazy">
+          <img src="logos/game3.png" alt="Roster title" loading="lazy">
+          <img src="logos/game4.png" alt="Roster title" loading="lazy">
+          <img src="logos/game5.png" alt="Roster title" loading="lazy">
+          <img src="logos/game6.png" alt="Roster title" loading="lazy">
+          <img src="logos/game7.png" alt="Roster title" loading="lazy">
+          <img src="logos/game8.png" alt="Roster title" loading="lazy">
+          <img src="logos/game9.png" alt="Roster title" loading="lazy">
+        </div>
+        <p class="hero-gallery-note">*games from Nest's Publisher Partner</p>
       </div>
     </div>
   </div>
