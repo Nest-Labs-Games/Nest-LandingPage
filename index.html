@@ -130,17 +130,72 @@
   /* hero game gallery (right column) */
   .hero-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-content:center}
   .hero-gallery-note{margin-top:12px;text-align:center;font-size:12px;color:rgba(255,255,255,.65)}
-  .hero-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block;
+
+  /* ---- hover-reveal tiles ---- */
+  .game-tile{
+    position:relative;display:block;width:100%;aspect-ratio:1/1;border-radius:16px;
+    overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;
     border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 34px -16px rgba(0,0,0,.55);
-    transition:transform .2s ease,box-shadow .2s ease}
-  .hero-gallery img:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 22px 44px -18px rgba(0,0,0,.6)}
+    transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1);
+  }
+  .game-tile:hover,.game-tile:focus-visible{transform:translateY(-4px);box-shadow:0 22px 44px -18px rgba(0,0,0,.6)}
+  .game-tile-img{width:100%;height:100%;object-fit:cover;display:block}
+  /* --- PASTE THIS NEW RULE HERE --- */
+  .game-title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 90%;
+  text-align: center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(12px, 1.4vw, 16px); /* Smaller font size */
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  text-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.85),
+    0 1px 3px rgba(0, 0, 0, 0.9);
+
+  /* Hidden by default with smooth fade-in transition */
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+/* Show title on hover or keyboard focus */
+.game-tile:hover .game-title,
+.game-tile:focus-visible .game-title {
+  opacity: 1;
+}
+  .game-tile-overlay{
+    position:absolute;inset:0;z-index:2;border-radius:inherit;
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+    text-align:left;padding:11% 12%;gap:1px;
+    background:linear-gradient(180deg,rgba(76,31,176,0) 0%,rgba(72,32,168,.38) 42%,rgba(42,14,102,.9) 100%);
+    opacity:0;
+    transition:opacity .35s cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+  }
+  .game-tile:hover .game-tile-overlay,
+  .game-tile:focus-visible .game-tile-overlay{opacity:1}
+  .game-tile-overlay .stat-num{
+    font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;color:#fff;
+    font-size:clamp(13px,1.9vw,19px);line-height:1.12;letter-spacing:-.01em;
+  }
+  .game-tile-overlay .stat-label{
+    font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;color:#fff;
+    font-size:clamp(13px,1.9vw,19px);line-height:1.12;letter-spacing:-.01em;
+  }
+  @media(prefers-reduced-motion:reduce){.game-tile,.game-tile-overlay{transition:none}}
 
   /* ============ PARTNERS ============ */
-  .partners{padding:0px 0 74px;background:#fff;position:relative}
+  .partners{padding:64px 0 74px;background:#fff;position:relative}
   .partners .lbl{text-align:center;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:12px;
     letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
   /* publishing partners: logos in cards, full colour */
-  .pub-band{background:#fff;border-bottom:none;padding:30px 0 0.1px}
+  .pub-band{background:linear-gradient(180deg,#faf8ff,#fff);border-bottom:1px solid var(--line);padding:58px 0 56px}
   .pub-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
   .pub-grid .pub-card{width:calc(25% - 18px);min-width:180px}
   .supported-band{background:linear-gradient(180deg,#faf8ff,#fff);border-bottom:1px solid var(--line);padding:58px 0 56px}
@@ -150,47 +205,12 @@
   .pub-card img{height:96px;width:auto;max-width:96%;object-fit:contain}
   /* media & community partners: running marquee */
   .mq-head{padding-top:54px}
-  .marquee {
-  overflow: hidden;
-  padding: 16px 0;
-  --fade: 90px;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
-          mask: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 45s linear infinite;
-  will-change: transform;
-}
-
-.marquee-group {
-  display: flex;
-  align-items: center;
-  gap: 48px; /* Control gap between logos here */
-  padding-right: 48px; /* Matches gap to ensure seamless loop transition */
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-.marquee-group img {
-  height: 64px;
-  width: auto;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
+  .marquee{overflow:hidden;padding:16px 0;--fade:90px;
+    -webkit-mask:linear-gradient(90deg,transparent,#000 var(--fade),#000 calc(100% - var(--fade)),transparent);
+            mask:linear-gradient(90deg,transparent,#000 var(--fade),#000 calc(100% - var(--fade)),transparent)}
+  .marquee-track{display:flex;align-items:center;gap:64px;width:max-content;animation:marquee 32s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track img{height:74px;width:auto;object-fit:contain;border-radius:16px;flex:0 0 auto}
   @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
@@ -220,9 +240,12 @@
   .barriers{background:var(--lav)}
 
   /* ============ STRATEGY big purple box ============ */
-  #about{padding-bottom:1px}
+  #about{padding-bottom:36px}
   .strategy{padding:80px 0 104px}
   .strategy .wrap{position:relative}
+  /* hands image floating over the top-right of the offers box */
+  /* 3D orbit: icons ride a tilted ellipse, passing behind the globe on the far
+     side (smaller + z-index under) and in front on the near side (larger) */
   .offers-art{position:absolute;top:-34px;right:88px;width:min(330px,32%);aspect-ratio:1;z-index:3;pointer-events:none}
   .offers-art .orbit-globe{position:absolute;top:50%;left:50%;width:56%;transform:translate(-50%,-50%);z-index:2;
     filter:drop-shadow(0 22px 32px rgba(74,31,176,.55))}
@@ -271,6 +294,7 @@
 
   /* ============ FUNNEL ============ */
   .funnel{background:var(--lav)}
+  /* accelerator steps: clickable step list (left) + detail panel (right), CSS-only radio tabs */
   .fst-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
   .funnel-explorer{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:26px;align-items:start}
   .funnel-chart{display:flex;flex-direction:column;gap:12px}
@@ -287,7 +311,7 @@
   .funnel-stage:hover .fs-cta{opacity:1;color:var(--v-500)}
   @media(prefers-reduced-motion:no-preference){.funnel-stage .fs-cta{animation:chevHint 2.4s ease-in-out infinite}}
   @keyframes chevHint{0%,100%{transform:translateX(0)}55%{transform:translateX(4px)}}
-  
+  /* active step (filled purple) */
   #fst1:checked~.funnel-chart label[for="fst1"],
   #fst2:checked~.funnel-chart label[for="fst2"],
   #fst3:checked~.funnel-chart label[for="fst3"],
@@ -308,14 +332,15 @@
   #fst2:checked~.funnel-chart label[for="fst2"] .fs-cta,
   #fst3:checked~.funnel-chart label[for="fst3"] .fs-cta,
   #fst4:checked~.funnel-chart label[for="fst4"] .fs-cta{opacity:1;color:#fff}
-  
+  /* right: detail panel */
   .stage-panel{display:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 34px;box-shadow:var(--shadow)}
   #fst1:checked~.stage-panels #fpanel1,
   #fst2:checked~.stage-panels #fpanel2,
   #fst3:checked~.stage-panels #fpanel3,
   #fst4:checked~.stage-panels #fpanel4{display:block;animation:panelIn .35s ease}
   @keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-  
+  /* JS-enhanced: smoothly animate the panel-area height + crossfade instead of snapping.
+     The container clips + carries the shadow so nothing is cut and no content spills. */
   .stage-panels.anim{position:relative;overflow:hidden;border-radius:var(--r);box-shadow:var(--shadow);
     transition:height .42s cubic-bezier(.4,0,.2,1)}
   .stage-panels.anim .stage-panel{display:block;position:absolute;top:0;left:0;right:0;box-shadow:none;
@@ -340,11 +365,11 @@
   .sp-sub{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
   .sp-sub .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
   .sp-sub .chips span{background:var(--v-50);color:var(--v-700);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
-  
+  /* studio-funding amount highlight */
   .sp-invest{background:var(--grad);border-radius:18px;padding:26px 30px;color:#fff;display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap;box-shadow:0 20px 40px -22px rgba(109,40,217,.6)}
   .sp-invest-amt{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:clamp(34px,5vw,46px);line-height:1;color:#fff;letter-spacing:-.02em}
   .sp-invest-label{font-size:15px;color:rgba(255,255,255,.88);font-weight:600}
-  
+  /* completion-grant amount highlights */
   .grant-highlights{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
   .grant-h{background:var(--v-50);border:1px solid var(--v-100);border-radius:14px;padding:16px 18px}
   .grant-amt{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:27px;color:var(--v-600);line-height:1;margin-bottom:7px}
@@ -375,7 +400,7 @@
   .perk h4{font-size:16px;margin-bottom:7px}
   .perk p{color:#a79dc4;font-size:13.5px}
 
-  /* ============ TIMELINE ============ */
+  /* ============ TIMELINE (slide 7 style) ============ */
   .timeline-sec{background:var(--dark);color:#fff;position:relative;overflow:hidden}
   .timeline-sec::before{content:"";position:absolute;top:-20%;right:-6%;width:520px;height:520px;border-radius:50%;
     background:radial-gradient(circle,rgba(124,58,237,.35),transparent 65%);filter:blur(20px)}
@@ -390,7 +415,7 @@
     background:var(--grad);border:4px solid #fff;box-shadow:0 4px 12px rgba(109,40,217,.5)}
   .tl-col .date{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:14px;color:var(--v-600);margin-bottom:8px}
   .tl-col p{color:var(--ink-soft);font-size:13.5px;line-height:1.45}
-  
+  /* timeline: the line draws in from the left, then dots + labels follow */
   .js .tl-track.reveal{opacity:1;transform:none}
   .js .tl-track::before{transform:scaleX(0);transform-origin:left center;transition:transform 1s cubic-bezier(.65,0,.35,1)}
   .js .tl-track.in::before{transform:scaleX(1)}
@@ -407,6 +432,7 @@
   /* ============ GUIDELINES ============ */
   .spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .spec{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow-sm)}
+  /* "who can apply" eligibility card */
   .prep-who{background:var(--v-50);border:1px solid var(--v-100);border-radius:var(--r);padding:30px 32px;margin-bottom:20px}
   .prep-who h3{font-size:20px;margin-bottom:18px}
   .prep-who ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px 28px}
@@ -428,6 +454,7 @@
   .faq-item[open] summary{border-bottom:1px solid var(--line)}
   .faq-item[open] summary .faq-ic{background:var(--grad);color:#fff;transform:rotate(45deg)}
   .faq-item p{padding:18px 24px 22px;color:var(--muted);font-size:14.5px;line-height:1.6}
+  /* smoothly animate the answer open/close instead of snapping (Chromium 129+; degrades to instant elsewhere) */
   @supports (interpolate-size: allow-keywords){
     :root{interpolate-size:allow-keywords}
     .faq-item::details-content{
@@ -459,6 +486,7 @@
   .cta-box .in{position:relative;z-index:2;max-width:640px;margin:0 auto}
   .cta-box h2{font-size:clamp(30px,4.4vw,48px);color:#fff;margin-bottom:18px}
   .cta-box p{color:rgba(255,255,255,.9);font-size:18px;margin-bottom:34px}
+  /* CTA "wow": diagonal light sweep, pulsing glow, launching rocket + sparkles */
   .cta-box{z-index:1}
   .cta-shine{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;pointer-events:none;border-radius:inherit;
     background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-130%)}
@@ -480,12 +508,13 @@
   .foot-links a:hover{color:#fff}
   .foot-copy{border-top:1px solid rgba(255,255,255,.08);margin-top:34px;padding-top:24px;text-align:center;color:#6f6690;font-size:13px}
 
-  /* reveal */
+  /* reveal (JS-gated so content is always visible without/if JS fails) */
   .js .reveal{opacity:0;transform:translateY(32px);transition:opacity .55s ease,transform .7s cubic-bezier(.16,1,.3,1)}
   .js .reveal.rv-scale{transform:scale(.9)}
   .js .reveal.rv-l{transform:translateX(-48px)}
   .js .reveal.rv-r{transform:translateX(48px)}
   .js .reveal.in{opacity:1;transform:none}
+  /* staggered cascade for children of a grid */
   .js .rv-stagger>.reveal:nth-child(2){transition-delay:.07s}
   .js .rv-stagger>.reveal:nth-child(3){transition-delay:.14s}
   .js .rv-stagger>.reveal:nth-child(4){transition-delay:.21s}
@@ -495,9 +524,11 @@
   @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1!important;transform:none!important;transition:none}}
 
   /* ============ FREEFLOW DECOR ============ */
+  /* flowing wave dividers: sit at the bottom of a section, filled with the next section's colour */
   #curriculum,.cta-sec,#guidelines,#faq,#team{position:relative}
   .wv{position:absolute;left:0;width:100%;bottom:-1px;line-height:0;pointer-events:none;z-index:3;overflow:hidden}
   .wv svg{display:block;width:200%;height:72px}
+  /* soft ambient colour washed into the light sections so nothing reads as a flat block */
   .barriers{background:
     radial-gradient(46% 42% at 7% 5%,rgba(139,108,247,.13),transparent 72%),
     radial-gradient(42% 44% at 96% 94%,rgba(124,58,237,.10),transparent 70%),
@@ -507,6 +538,7 @@
     radial-gradient(46% 42% at 3% 97%,rgba(184,164,245,.20),transparent 70%),
     var(--lav)}
   .funnel>.wrap{position:relative;z-index:2}
+  /* floating 3D step icons flanking the "How It Works" heading (decorative, pre-rotated art) */
   .funnel-deco{position:absolute;top:0;left:50%;transform:translateX(-50%);
     width:min(calc(100% - 24px),1300px);height:430px;pointer-events:none;z-index:1}
   .fdeco{position:absolute;height:auto;filter:drop-shadow(0 18px 22px rgba(74,31,176,.22));user-select:none}
@@ -519,15 +551,20 @@
     radial-gradient(34% 36% at 99% 2%,rgba(139,108,247,.08),transparent 70%),
     radial-gradient(30% 34% at 1% 55%,rgba(124,58,237,.06),transparent 70%),
     #fff}
+  /* floating game-dev doodles in the curriculum side margins (decorative) */
   #curriculum>.wrap{position:relative;z-index:1}
   .curr-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  /* each doodle: --f = how far into the side margin (0 = beside content, 1 = viewport edge),
+     --w = size, top set inline. Anchored to the content edge so it never overlaps text. */
   .cdeco{position:absolute;width:var(--w,48px);opacity:.92}
   .cdeco.l{right:calc(50% + var(--base,380px) + (50% - var(--base,380px)) * var(--f,.25))}
   .cdeco.r{left:calc(50% + var(--base,380px) + (50% - var(--base,380px)) * var(--f,.25))}
+  /* reusable decoration layer for other section headings */
   .prep-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;--base:225px}
   #guidelines>.wrap{position:relative;z-index:1}
   @media(max-width:1080px){.prep-deco{display:none}}
   .cdeco img{display:block;width:100%;height:auto;transform:rotate(var(--r,0deg));filter:drop-shadow(0 12px 16px rgba(74,31,176,.20))}
+  /* depth-of-field tiers: softer + more transparent = further back */
   .cdeco.soft{opacity:.7}
   .cdeco.soft img{filter:blur(1.5px) drop-shadow(0 8px 12px rgba(74,31,176,.15))}
   .cdeco.far{opacity:.5}
@@ -539,14 +576,17 @@
     radial-gradient(36% 42% at 3% 5%,rgba(139,108,247,.08),transparent 72%),
     radial-gradient(34% 38% at 97% 92%,rgba(184,164,245,.14),transparent 70%),
     var(--lav)}
+  /* dotted texture on the dark timeline block for depth */
   .timeline-sec{background-color:var(--dark);
     background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.4px);background-size:26px 26px}
+  /* flowing "stream" lines behind the hero content */
   .hero-flow{position:absolute;inset:0;z-index:1;opacity:.55;pointer-events:none;overflow:hidden}
   .hero-flow svg{position:absolute;inset:0;width:100%;height:100%}
+  /* faint swirl watermark echoing the nest mark inside the purple boxes */
   .flow-mark{position:absolute;pointer-events:none;opacity:.12;z-index:1;color:#fff}
   .flow-mark svg{width:100%;height:100%;display:block}
 
-  /* ============ ANIMATED BACKGROUND ============ */
+  /* ============ ANIMATED BACKGROUND (wave motion) ============ */
   @media(prefers-reduced-motion:no-preference){
     .wv svg{animation:waveflow 16s linear infinite}
     #curriculum .wv svg{animation-duration:19s}
@@ -619,6 +659,7 @@
       <a href="#about">About</a>
       <a href="#funnel">Steps</a>
       <a href="#curriculum">Curriculum</a>
+      <!-- <a href="#team">Team</a> -->
       <a href="#guidelines">Prepare</a>
       <a href="#timeline">Timeline</a>
       <a href="#faq">FAQ</a>
@@ -653,25 +694,65 @@
         <h1>Build the Next Mobile Game Hit</h1>
         <p>You build the game. We back it with mentorship, tools, publishing service and up to <strong>$20K</strong> in Funding.</p>
         <div class="hero-cta">
-          <a href="https://forms.gle/ESYg449EdcBz5Yp36" target="_blank" rel="noopener" class="btn btn-light">Register now! <span class="arrow">→</span></a>
-          <a href="https://discord.gg/d269rrXDu3" target="_blank" rel="noopener" class="btn btn-ghost">Join our community</a>
+          <a href="https://forms.gle/ESYg449EdcBz5Yp36" target="_blank" rel="noopener" class="btn btn-light">Submit Your Portfolio <span class="arrow">→</span></a>
+          <a href="https://discord.gg/d8e9aYfCs" target="_blank" rel="noopener" class="btn btn-ghost">Join our Discord</a>
         </div>
         <div class="nestmark"><img src="logos/nestlogo.svg" alt="nest"></div>
       </div>
 
       <div class="hero-gallery-wrap reveal">
-        <div class="hero-gallery">
-          <img src="logos/game1.png" alt="Roster title" loading="lazy">
-          <img src="logos/game2.png" alt="Roster title" loading="lazy">
-          <img src="logos/game3.png" alt="Roster title" loading="lazy">
-          <img src="logos/game4.png" alt="Roster title" loading="lazy">
-          <img src="logos/game5.png" alt="Roster title" loading="lazy">
-          <img src="logos/game6.png" alt="Roster title" loading="lazy">
-          <img src="logos/game7.png" alt="Roster title" loading="lazy">
-          <img src="logos/game8.png" alt="Roster title" loading="lazy">
-          <img src="logos/game9.png" alt="Roster title" loading="lazy">
+        <!--
+          Each tile: edit data-url (where the click sends the user, opens in a new tab)
+          and the two data-stat-* attributes (what shows on the flip side).
+        -->
+        <div class="hero-gallery" id="heroGallery">
+          <a class="game-tile" data-url="https://example.com/game1" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game1.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Sortify</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game2" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game2.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Airport BillionAir Idle Tycoon</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game3" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game3.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Hamster Jump</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game4" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game4.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Sheep Dash</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game5" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game5.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Build a Bridge</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game6" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game6.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Epic Plane Evolution</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game7" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game7.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Epic Plane Evolution</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game8" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game8.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Epic Plane Evolution</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
+          <a class="game-tile" data-url="https://example.com/game9" data-stat-num="10M+" data-stat-label="Installs">
+            <img class="game-tile-img" src="logos/game9.png" alt="Roster title" loading="lazy">
+            <span class="game-title">Idle Pet Shelter</span>
+            <div class="game-tile-overlay"><span class="stat-num"></span><span class="stat-label"></span></div>
+          </a>
         </div>
-        <p class="hero-gallery-note">Hit games from Nest's Publisher Partner</p>
+        <p class="hero-gallery-note">*hit games from Nest's Publisher Partner</p>
       </div>
     </div>
   </div>
@@ -687,58 +768,27 @@
       <div class="about-right">
         <div class="section-head left reveal">
           <h2>A game accelerator that provides <span class="grad-text">mentorship, tools, market data, and seed funding</span> for gamedevs</h2>
-          <p>Nest empowers Indonesian studios to turn local talent into global mobile hits. By closing key gaps in capital, Game Direction, and business strategy, we provide them with funding, tools, and end to end publishing support. Taking your game from prototype to market success alongside our global publishing partners.</p>
+          <p>Indonesia has the talent, but three structural gaps keep hit games from shipping mobile hits: no end to end mobile dev education (especially in Game Direction and Business), no capital, and a lingering premium first mindset. Nest closes all three, investing in early stage Indonesian studios and taking them from prototype to market, milestone by milestone, across Game Direction, production, monetization, and Live Ops.</p>
         </div>
+        <!-- <div class="fixes rv-stagger">
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>The know-how</h4><p>An end-to-end curriculum and a real community, so nobody learns mobile development alone.</p></div>
+          </div>
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>The capital and support</h4><p>Grants, monthly guarantees, and direct funding, so money never stalls a good team.</p></div>
+          </div>
+          <div class="fix reveal">
+            <div class="fix-ic">✓</div>
+            <div><h4>Publishing</h4><p>Connecting studio cohorts to our publisher partners for launch and scaling.</p></div>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
 </section>
 
-<!-- PARTNERS -->
-<section class="partners">
-  <div class="pub-band">
-    <div class="wrap">
-      <p class="lbl">Mentor & Publishing Partners</p>
-      <div class="marquee" role="img" aria-label="Mentor and Publishing partners">
-        <div class="marquee-track">
-          <!-- Group 1 -->
-          <div class="marquee-group">
-            <img src="logos/Boombit.png" alt="Boombit">
-            <img src="logos/AllAces.png" alt="All Aces">
-            <img src="logos/Abysscore.png" alt="Abysscore">
-            <img src="logos/Noctua.png" alt="Noctua">
-            <img src="logos/AzurGames.png" alt="Azur Games">
-          </div>
-          <!-- Group 2 -->
-          <div class="marquee-group" aria-hidden="true">
-            <img src="logos/Boombit.png" alt="Boombit">
-            <img src="logos/AllAces.png" alt="All Aces">
-            <img src="logos/Abysscore.png" alt="Abysscore">
-            <img src="logos/Noctua.png" alt="Noctua">
-            <img src="logos/AzurGames.png" alt="Azur Games">
-          </div>
-          <!-- Group 3 -->
-          <div class="marquee-group" aria-hidden="true">
-            <img src="logos/Boombit.png" alt="Boombit">
-            <img src="logos/AllAces.png" alt="All Aces">
-            <img src="logos/Abysscore.png" alt="Abysscore">
-            <img src="logos/Noctua.png" alt="Noctua">
-            <img src="logos/AzurGames.png" alt="Azur Games">
-          </div>
-          <!-- Group 4 -->
-          <div class="marquee-group" aria-hidden="true">
-            <img src="logos/Boombit.png" alt="Boombit">
-            <img src="logos/AllAces.png" alt="All Aces">
-            <img src="logos/Abysscore.png" alt="Abysscore">
-            <img src="logos/Noctua.png" alt="Noctua">
-            <img src="logos/AzurGames.png" alt="Azur Games">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-  
 <!-- STRATEGY (big purple box) -->
 <section class="strategy" id="strategy">
   <div class="wrap">
@@ -926,6 +976,39 @@
   <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#f5f2ff"/></svg></div>
 </section>
 
+<!-- TEAM (hidden — uncomment to restore)
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Meet the Team &amp; Mentors</span>
+      <h2>Learn directly from <span class="grad-text">the operators</span></h2>
+      <p>Not theorists. The people who ship and publish hit mobile titles.</p>
+    </div>
+    <div class="team-grid rv-stagger">
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/dev.png" alt=""></div>
+        <h3>Usaya</h3>
+        <div class="role">Game Developer</div>
+        <p>Developer behind Hamster Jump, Cat Escape, more than 50M installs.</p>
+      </div>
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/teacher.png" alt=""></div>
+        <h3>Haekhel Fachrialdy</h3>
+        <div class="role">VP Publishing, Noctua Games</div>
+        <p>Leads Nest's games publishing across the full roster. 25M+ installs, 200K DAU.</p>
+      </div>
+      <div class="member reveal rv-scale">
+        <div class="avatar"><img src="logos/emoji/exec.png" alt=""></div>
+        <h3>Ghazy Azhar</h3>
+        <div class="role">CEO of Nest</div>
+        <p>Ex-CEO of Play Castle Studio and F2P expert. 7M+ installs, 13M Roblox visits, 100K DAU.</p>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
 <!-- WHAT TO PREPARE -->
 <section class="section barriers" id="guidelines">
   <div class="prep-deco" aria-hidden="true">
@@ -955,7 +1038,7 @@
   <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#0e0a1f"/></svg></div>
 </section>
 
-<!-- TIMELINE -->
+<!-- TIMELINE (slide 7 style) -->
 <section class="section timeline-sec" id="timeline">
   <div class="wrap">
     <div class="section-head reveal">
@@ -976,8 +1059,22 @@
   <div class="wv" aria-hidden="true"><svg viewBox="0 0 2880 72" preserveAspectRatio="none"><path d="M0,36 C240,8 480,8 720,36 C960,64 1200,64 1440,36 C1680,8 1920,8 2160,36 C2400,64 2640,64 2880,36 L2880,72 L0,72 Z" fill="#ffffff"/></svg></div>
 </section>
 
-<!-- SUPPORTED BY & COMMUNITY PARTNERS -->
+<!-- PARTNERS -->
 <section class="partners">
+  <div class="pub-band">
+    <div class="wrap">
+      <p class="lbl">Our Publishing Partners</p>
+      <div class="pub-grid rv-stagger">
+        <div class="pub-card reveal rv-scale"><img src="logos/Boombit.png" alt="BoomBit"></div>
+        <div class="pub-card reveal rv-scale"><img src="logos/AllAces.png" alt="AllAces"></div>
+        <div class="pub-card reveal rv-scale"><img src="logos/Noctua.png" alt="Noctua"></div>
+      </div>
+    </div>
+    <!-- <div class="pub-grid rv-stagger">
+        <div class="pub-card reveal rv-scale"><img src="logos/Boombit.png" alt="Noctua"></div>
+      </div>
+    </div>
+  </div> -->
   <div class="supported-band">
     <div class="wrap">
       <p class="lbl">Supported By</p>
@@ -987,58 +1084,15 @@
       </div>
     </div>
   </div>
-
   <div class="wrap"><p class="lbl mq-head">Media &amp; Community Partners</p></div>
   <div class="marquee" role="img" aria-label="Media and community partners">
-     <div class="marquee-track">
-      <!-- Group 1 -->
-      <div class="marquee-group">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
-      <!-- Group 2 -->
-      <div class="marquee-group" aria-hidden="true">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
-      <!-- Group 3 -->
-      <div class="marquee-group" aria-hidden="true">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
-      <!-- Group 4 -->
-      <div class="marquee-group" aria-hidden="true">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
-      <!-- Group 5 -->
-      <div class="marquee-group" aria-hidden="true">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
-      <!-- Group 6 -->
-      <div class="marquee-group" aria-hidden="true">
-        <img src="logos/comunity1.png" alt="Community">
-        <img src="logos/comunity2.png" alt="Community">
-        <img src="logos/comunity3.png" alt="Community">
-        <img src="logos/comunity4.png" alt="Community">
-        <img src="logos/comunity5.png" alt="Community">
-      </div>
+    <div class="marquee-track" aria-hidden="true">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
+      <img src="logos/comunity1.png" alt=""><img src="logos/comunity2.png" alt=""><img src="logos/comunity3.png" alt=""><img src="logos/comunity4.png" alt=""><img src="logos/comunity5.png" alt="">
     </div>
   </div>
 </section>
@@ -1089,6 +1143,10 @@
         <summary><span>Who owns the IP of my game?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
         <p>Your studio keeps 100% of the IP.</p>
       </details>
+      <!-- <details class="faq-item">
+        <summary><span>For Studio Investment, who decides between equity or revenue share?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
+        <p>We'll discuss and agree on whichever structure works best for both sides.</p>
+      </details> -->
       <details class="faq-item">
         <summary><span>Can non-Indonesian developers apply?</span><span class="faq-ic" aria-hidden="true">+</span></summary>
         <p>For Batch 1, the program is open to Indonesian developers and studios only.</p>
@@ -1111,6 +1169,7 @@
         <a href="#about">About</a>
         <a href="#funnel">Steps</a>
         <a href="#curriculum">Curriculum</a>
+        <!-- <a href="#team">Team</a> -->
         <a href="#guidelines">Prepare</a>
         <a href="#timeline">Timeline</a>
         <a href="#faq">FAQ</a>
@@ -1132,12 +1191,13 @@
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
     reveals.forEach(function(el){io.observe(el)});
   } else { revealAll(); }
-  // accelerator steps
+  // accelerator steps: animate the panel-area height + crossfade (enhances the CSS-only tabs)
   (function(){
     var wrap=document.querySelector('.stage-panels');
     if(!wrap) return;
     var map={fst1:'fpanel1',fst2:'fpanel2',fst3:'fpanel3',fst4:'fpanel4'};
     function active(){var r=document.querySelector('.fst-radio:checked');return document.getElementById(r?map[r.id]:'fpanel1');}
+    // lock in the current in-flow height, THEN switch panels to absolute (no collapse flash)
     var p0=active();
     wrap.style.height=(p0?p0.offsetHeight:0)+'px';
     wrap.classList.add('anim');
@@ -1148,27 +1208,56 @@
     window.addEventListener('load',snap);
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(snap);
   })();
-  // globe orbit reacts to scrolling
+  // globe orbit reacts to scrolling: spins up fast while you scroll, eases back when you stop.
+  // uses playbackRate (Web Animations API) so the speed change never makes the icons jump.
   (function(){
     var orbs=document.querySelectorAll('.offers-art .orb');
     if(!orbs.length||!orbs[0].getAnimations) return;
     var anims=[];
     orbs.forEach(function(o){o.getAnimations().forEach(function(a){anims.push(a)})});
-    if(!anims.length) return;
+    if(!anims.length) return;                 // reduced-motion: no animations to speed up
     var rate=1,target=1,lastY=window.scrollY,raf=null,idle;
     function tick(){
-      rate+=(target-rate)*0.2;
+      rate+=(target-rate)*0.2;                // ease toward the target speed
       if(Math.abs(target-rate)<0.05) rate=target;
       anims.forEach(function(a){a.playbackRate=rate});
       if(rate!==target||target!==1){raf=requestAnimationFrame(tick)} else {raf=null}
     }
     window.addEventListener('scroll',function(){
       var y=window.scrollY, v=Math.abs(y-lastY); lastY=y;
-      target=Math.min(1+v*2.4,70);
+      target=Math.min(1+v*2.4,70);            // faster scrolling => faster orbit (capped)
       if(!raf) raf=requestAnimationFrame(tick);
       clearTimeout(idle);
       idle=setTimeout(function(){target=1;if(!raf)raf=requestAnimationFrame(tick)},140);
     },{passive:true});
+  })();
+</script>
+
+<script>
+  // Wires up the hero game tiles: fills in the flip-side stat text from
+  // data attributes, and opens each tile's link in a new tab when clicked.
+  (function(){
+    var tiles = document.querySelectorAll('#heroGallery .game-tile');
+    tiles.forEach(function(tile){
+      var numEl = tile.querySelector('.stat-num');
+      var labelEl = tile.querySelector('.stat-label');
+      if(numEl) numEl.textContent = tile.getAttribute('data-stat-num') || '';
+      if(labelEl) labelEl.textContent = tile.getAttribute('data-stat-label') || '';
+
+      tile.setAttribute('role','link');
+      tile.setAttribute('tabindex','0');
+      var title = tile.querySelector('.game-tile-img');
+      if(title) tile.setAttribute('aria-label', title.getAttribute('alt') || 'Game');
+
+      function go(){
+        var url = tile.getAttribute('data-url');
+        if(url) window.open(url, '_blank', 'noopener');
+      }
+      tile.addEventListener('click', go);
+      tile.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+      });
+    });
   })();
 </script>
 </body>
